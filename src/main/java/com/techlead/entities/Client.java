@@ -1,6 +1,9 @@
 package com.techlead.entities;
 
-public class Client extends User{
+import javax.persistence.Entity;
+
+@Entity
+public class Client extends User {
 
 	private static final long serialVersionUID = 1L;
 
@@ -11,5 +14,5 @@ public class Client extends User{
 	public Client(Long id, String name, String email, String password) {
 		super(id, name, email, password, false);
 	}
-	
+
 }

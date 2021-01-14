@@ -2,24 +2,35 @@ package com.techlead.entities;
 
 import java.io.Serializable;
 
-abstract class User implements Serializable{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_user")
+abstract class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String password;
-	private Boolean level;
-	
-	public User() {}
-	
-	public User(Long id, String name, String email, String password, Boolean level) {
+	private Boolean permission;
+
+	public User() {
+	}
+
+	public User(Long id, String name, String email, String password, Boolean permission) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.level = level;
+		this.permission = permission;
 	}
 
 	public Long getId() {
@@ -54,8 +65,8 @@ abstract class User implements Serializable{
 		this.password = password;
 	}
 
-	public Boolean getLevel() {
-		return level;
+	public Boolean getPermission() {
+		return permission;
 	}
 
 	@Override
