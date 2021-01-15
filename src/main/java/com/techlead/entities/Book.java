@@ -12,30 +12,35 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techlead.enums.BookStatus;
 
 @Entity
 @Table(name = "tb_book")
-public class Book implements Serializable{
+public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private String name;
 	private String author;
 	private Instant dataCadastro;
 	private Integer bookStatus;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy = "books")
 	private Set<Order> orders = new HashSet<Order>();
-	
-	public Book() {}
-	
-	public Book(Long id, String nome, String author, Instant dataCadastro) {
+
+	public Book() {
+		this.dataCadastro = Instant.now();
+		setBookStatus(BookStatus.AVAILABLE);
+	}
+
+	public Book(Long id, String name, String author, Instant dataCadastro) {
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.author = author;
 		this.dataCadastro = dataCadastro;
 		setBookStatus(BookStatus.AVAILABLE);
@@ -49,12 +54,12 @@ public class Book implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAuthor() {
@@ -72,17 +77,17 @@ public class Book implements Serializable{
 	public void setDataCadastro(Instant dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
+
 	public BookStatus getBookStatus() {
 		return BookStatus.valueOf(bookStatus);
 	}
-	
+
 	public void setBookStatus(BookStatus bookStatus) {
-		if(bookStatus != null) {
+		if (bookStatus != null) {
 			this.bookStatus = bookStatus.getCode();
 		}
 	}
-	
+
 	public Set<Order> getOrders() {
 		return orders;
 	}
@@ -111,5 +116,5 @@ public class Book implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

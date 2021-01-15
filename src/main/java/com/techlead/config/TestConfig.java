@@ -14,6 +14,8 @@ import com.techlead.entities.Administrator;
 import com.techlead.entities.Book;
 import com.techlead.entities.Client;
 import com.techlead.entities.Order;
+import com.techlead.enums.BookStatus;
+import com.techlead.enums.OrderStatus;
 import com.techlead.repository.AdministratorRepository;
 import com.techlead.repository.BookRepository;
 import com.techlead.repository.ClientRepository;
@@ -56,14 +58,14 @@ public class TestConfig implements CommandLineRunner {
 		o1.getBook().add(b1);
 		o1.getBook().add(b3);
 		o1.getBook().add(b5);
+		o1.setOrderStatus(OrderStatus.APPROVED);
+		b1.setBookStatus(BookStatus.UNAVAILABLE);
+		b3.setBookStatus(BookStatus.UNAVAILABLE);
+		b5.setBookStatus(BookStatus.UNAVAILABLE);
 		
-		/*b1.getOrders().add(o1);
-		b3.getOrders().add(o1);
-		b5.getOrders().add(o1);
-		*/
 		admRepository.save(adm);
 		clientRepository.saveAll(Arrays.asList(c1, c2));
-		//bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
+		bookRepository.saveAll(Arrays.asList(b1, b2, b3, b4, b5));
 		orderRepository.saveAll(Arrays.asList(o1));
 
 	}
