@@ -48,7 +48,12 @@ public class BookService {
 	public Book rentBook(Book book) {
 		if (book.getBookStatus().equals(BookStatus.AVAILABLE)) {
 			book.setBookStatus(BookStatus.UNAVAILABLE);
-		} else {
+		}
+		return repository.save(book);
+	}
+
+	public Book devolutionBook(Book book) {
+		if (book.getBookStatus().equals(BookStatus.UNAVAILABLE)) {
 			book.setBookStatus(BookStatus.AVAILABLE);
 		}
 		return repository.save(book);

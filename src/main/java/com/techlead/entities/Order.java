@@ -1,16 +1,12 @@
 package com.techlead.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,19 +26,20 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-	
-	@ManyToMany
-	@JoinTable(name = "tb_book_order", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-	private Set<Book> books = new HashSet<Book>();
+
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
 	public Order() {
+		setOrderStatus(OrderStatus.PENDING);
 	}
 
-	public Order(Long id, Client client, Set<Book> book) {
+	public Order(Long id, Client client, Book book) {
 		this.id = id;
 		setOrderStatus(OrderStatus.PENDING);
 		this.client = client;
-		this.books = book;
+		this.book = book;
 	}
 
 	public Long getId() {
@@ -70,9 +67,13 @@ public class Order implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	
+	public Book getBook() {
+		return book;
+	}
 
-	public Set<Book> getBook() {
-		return books;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override

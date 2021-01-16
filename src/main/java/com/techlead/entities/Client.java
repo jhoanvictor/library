@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Client extends User {
-
+	
 	private static final long serialVersionUID = 1L;
 
 	public Client() {

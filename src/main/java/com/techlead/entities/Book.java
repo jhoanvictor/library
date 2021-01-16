@@ -2,17 +2,13 @@ package com.techlead.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techlead.enums.BookStatus;
 
 @Entity
@@ -28,10 +24,6 @@ public class Book implements Serializable {
 	private String author;
 	private Instant dataCadastro;
 	private Integer bookStatus;
-
-	@JsonIgnore
-	@ManyToMany(mappedBy = "books")
-	private Set<Order> orders = new HashSet<Order>();
 
 	public Book() {
 		this.dataCadastro = Instant.now();
@@ -86,10 +78,6 @@ public class Book implements Serializable {
 		if (bookStatus != null) {
 			this.bookStatus = bookStatus.getCode();
 		}
-	}
-
-	public Set<Order> getOrders() {
-		return orders;
 	}
 
 	@Override

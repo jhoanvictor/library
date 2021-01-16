@@ -2,7 +2,7 @@ package com.techlead.enums;
 
 public enum OrderStatus {
 	
-	PENDING(1), APPROVED(2), REFUSED(3);
+	APPROVED(1), REFUSED(2), PENDING(3);
 	
 	private Integer code;
 	

@@ -43,7 +43,7 @@ public class BookEndPoint {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
@@ -58,6 +58,13 @@ public class BookEndPoint {
 
 	@PutMapping(value = "/rent/{id}")
 	public ResponseEntity<Book> rentBook(@PathVariable Long id) {
+		Book obj = service.findById(id);
+		obj = service.rentBook(obj);
+		return ResponseEntity.ok().body(obj);
+	}
+
+	@PutMapping(value = "/devolution/{id}")
+	public ResponseEntity<Book> devolutionBook(@PathVariable Long id) {
 		Book obj = service.findById(id);
 		obj = service.rentBook(obj);
 		return ResponseEntity.ok().body(obj);
