@@ -19,6 +19,9 @@ public class OrderService {
 
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private ClientService clientService;
 
 	public List<Order> findAll() {
 		return repository.findAll();
@@ -35,6 +38,11 @@ public class OrderService {
 			return null;
 		}
 
+		if(clientService.getTotalBooks(obj.getClient()) > 5) {
+			//cliente ja possue 5 livros alugados
+			return null;
+		}
+		
 		return repository.save(obj);
 	}
 

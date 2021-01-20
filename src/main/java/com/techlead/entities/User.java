@@ -2,35 +2,52 @@ package com.techlead.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "tb_user")
-abstract class User implements Serializable {
+abstract class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
 	private String email;
+	
+	@Column(nullable = false)
 	private String password;
+	
+	@Column(nullable = false)
 	private Boolean permission;
+	
+	protected String authorities;
 
 	public User() {
+		this.permission = false;
+		this.authorities = "ROLE_USER";
 	}
 
-	public User(Long id, String name, String email, String password, Boolean permission) {
+	public User(Long id, String name, String email, String password, Boolean permission, String authorities) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.permission = permission;
+		this.authorities = authorities;
 	}
 
 	public Long getId() {

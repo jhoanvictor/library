@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techlead.entities.Book;
+import com.techlead.entities.Client;
 import com.techlead.enums.BookStatus;
 import com.techlead.repository.BookRepository;
 
@@ -18,6 +19,14 @@ public class BookService {
 
 	public List<Book> findAll() {
 		return repository.findAll();
+	}
+	
+	public List<Book> booksRented(Client client){
+		return repository.booksRented(client.getId());
+	}
+	
+	public List<Book> booksAvailable(){
+		return repository.booksAvailable();
 	}
 
 	public Book findById(Long id) {
@@ -44,7 +53,7 @@ public class BookService {
 		entity.setName(obj.getName());
 		entity.setAuthor(obj.getAuthor());
 	}
-
+	
 	public Book rentBook(Book book) {
 		if (book.getBookStatus().equals(BookStatus.AVAILABLE)) {
 			book.setBookStatus(BookStatus.UNAVAILABLE);

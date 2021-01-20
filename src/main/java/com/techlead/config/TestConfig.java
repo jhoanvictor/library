@@ -2,11 +2,13 @@ package com.techlead.config;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.techlead.entities.Administrator;
 import com.techlead.entities.Book;
@@ -21,7 +23,7 @@ import com.techlead.services.BookService;
 import com.techlead.services.OrderService;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class TestConfig implements CommandLineRunner {
 
 	@Autowired
@@ -38,17 +40,22 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private OrderService service;
-	
+
 	@Autowired
 	private BookService bookService;
-
+	
 	@Override
 	public void run(String... args) throws Exception {
 
 		Administrator adm = new Administrator(null, "adm", "adm@email.com", "root");
 		Client c1 = new Client(null, "Jhoan", "jhoan@email.com", "12345");
 		Client c2 = new Client(null, "Dani", "dani@email.com", "12345");
-
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		adm.setPassword(passwordEncoder.encode(adm.getPassword()));
+		c1.setPassword(passwordEncoder.encode(c1.getPassword()));
+		c2.setPassword(passwordEncoder.encode(c2.getPassword()));
+		
 		Book b1 = new Book(null, "JAVA com Spring", "Autor Desconhecido", Instant.now());
 		Book b2 = new Book(null, "PHP", "Autor Desconhecido", Instant.now());
 		Book b3 = new Book(null, "Python", "Autor Desconhecido", Instant.now());
@@ -68,14 +75,19 @@ public class TestConfig implements CommandLineRunner {
 		clientRepository.saveAll(Arrays.asList(c1, c2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4, o5, o6));
 
-		/*service.handleVerifyOrder(o1, OrderStatus.REFUSED);
+		service.handleVerifyOrder(o1, OrderStatus.REFUSED);
 		service.handleVerifyOrder(o2, OrderStatus.APPROVED);
 		service.handleVerifyOrder(o5, OrderStatus.APPROVED);
 		service.handleVerifyOrder(o3, OrderStatus.APPROVED);
 		service.handleVerifyOrder(o6, OrderStatus.APPROVED);
 		service.handleVerifyOrder(o4, OrderStatus.APPROVED);
+
+		bookService.devolutionBook(b3);
 		
-		bookService.devolutionBook(b3);*/
+		List<Book> books = bookRepository.booksRented(c2.getId());
+		for (Book b : books) {
+			System.out.println(b.getName() + " - " + b.getBookStatus());
+		}
 
 	}
 

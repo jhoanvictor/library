@@ -3,6 +3,7 @@ package com.techlead.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,11 +19,20 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
 	private String author;
+	
+	@Column(nullable = false)
 	private Instant dataCadastro;
+	
+	@Column(nullable = false)
 	private Integer bookStatus;
 
 	public Book() {
