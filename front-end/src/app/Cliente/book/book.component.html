@@ -1,0 +1,42 @@
+
+<div style="margin-top: 20px">
+  <button [routerLink]="['/order']">
+    Realizar pedido
+  </button>
+</div>
+
+<div style="margin-top: 20px">
+  <h2>Livros Alugados</h2>
+</div>
+
+<div class="table">
+  <div class="card" *ngIf="books">
+    <div class="card-body">
+      <table class="table table-bordered table-striped" >
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books" >
+            <td>{{ book.name }}</td>
+            <td>{{ book.author }}</td>
+            <td>
+              <button (click)="devolution(book)">
+                Devolver
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!books">
+    <h2> Nenhum livro alugado </h2>
+  </div>
+
+</div>

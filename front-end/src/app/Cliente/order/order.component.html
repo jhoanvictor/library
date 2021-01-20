@@ -1,0 +1,39 @@
+<div style="margin-top: 20px">
+  <button [routerLink]="['/book']">
+    Livros Alugados
+  </button>
+</div>
+
+<div style="margin-top: 20px">
+  <h2>Livros Disponíveis</h2>
+</div>
+
+<div class="table">
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books" >
+            <td>{{ book.name }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.bookStatus }}</td>
+            <td>
+              <button (click)="alugar(book)">
+                Alugar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,38 @@
+<h2>Gerenciador de Pedidos</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-bordered table-striped" >
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Cliente</th>
+            <th scope="col">Livro</th>
+            <th scope="col">Status Livro</th>
+            <th scope="col">Pedido</th>
+            <th scope="col">Aprovar</th>
+            <th scope="col">Recusar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" >
+            <td>{{ order.client.name }}</td>
+            <td>{{ order.book.name }}</td>
+            <td>{{ order.book.bookStatus }}</td>
+            <td>{{ order.orderStatus }}</td>
+            <td>
+              <button (click)="aprovar(order)" routerLink="/orders">
+                Approve
+              </button>
+            </td>
+            <td>
+              <button (click)="recusar(order)">
+                Refuse
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+

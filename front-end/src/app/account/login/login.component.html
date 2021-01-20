@@ -1,0 +1,24 @@
+<h2 class="text-center">Entrar</h2>
+
+<form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+      <label for="email">Email</label>
+      <input type="text" class="form-control"
+        name="email" [(ngModel)]="model.email"
+          #email="ngModel" required />
+      <div *ngIf="f.submitted
+        && !email.valid">Email is required</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+      <label for="password">Password</label>
+      <input type="password" class="form-control"
+        name="password" [(ngModel)]="model.password"
+          #password="ngModel" required />
+      <div *ngIf="f.submitted
+        && !password.valid">Password is required</div>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="f.form.invalid">Entrar</button>
+    <button type="button" class="btn btn-link btn-block" [routerLink]="['/create-account']">Criar conta</button>
+  </div>
+</form>
