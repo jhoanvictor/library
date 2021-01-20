@@ -24,7 +24,8 @@ public class Config implements ApplicationRunner {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		adm.setPassword(passwordEncoder.encode(adm.getPassword()));
 		
-		//admRepository.save(adm);
+		admRepository.save(adm);
+		
 	}
 
 }

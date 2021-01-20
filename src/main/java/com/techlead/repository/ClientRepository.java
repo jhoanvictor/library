@@ -7,7 +7,6 @@ import com.techlead.entities.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long>{
 	
-	//@Query(value = "SELECT U.* FROM TB_USER U WHERE U.EMAIL = '?1%' ", nativeQuery = true)
 	Client findByEmail(String email);
 	
 	@Query(value = "SELECT COUNT(U.ID) FROM TB_BOOK B "

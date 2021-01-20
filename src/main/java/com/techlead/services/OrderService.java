@@ -33,12 +33,15 @@ public class OrderService {
 	}
 
 	public Order insert(Order obj) {
-
+		
+		obj.setClient(clientService.findById(obj.getClient().getId()));
+		obj.setBook(bookService.findById(obj.getBook().getId()));
+		
 		if (!obj.getBook().getBookStatus().equals(BookStatus.AVAILABLE)) {
 			return null;
 		}
 
-		if(clientService.getTotalBooks(obj.getClient()) > 5) {
+		if(clientService.getTotalBooks(obj.getClient()) >= 5) {
 			//cliente ja possue 5 livros alugados
 			return null;
 		}

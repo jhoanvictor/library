@@ -86,7 +86,7 @@ public class BookEndPoint {
 	@PutMapping(value = "/devolution/{id}")
 	public ResponseEntity<Book> devolutionBook(@PathVariable Long id) {
 		Book obj = service.findById(id);
-		obj = service.rentBook(obj);
+		obj = service.devolutionBook(obj);
 		return ResponseEntity.ok().body(obj);
 	}
 

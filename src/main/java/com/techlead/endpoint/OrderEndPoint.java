@@ -52,5 +52,12 @@ public class OrderEndPoint {
 		obj = service.handleVerifyOrder(obj, OrderStatus.APPROVED);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PutMapping(value = "/refuse/{id}")
+	public ResponseEntity<Order> refuseOrder(@PathVariable Long id) {
+		Order obj = service.findById(id);
+		obj = service.handleVerifyOrder(obj, OrderStatus.REFUSED);
+		return ResponseEntity.ok().body(obj);
+	}
 
 }
